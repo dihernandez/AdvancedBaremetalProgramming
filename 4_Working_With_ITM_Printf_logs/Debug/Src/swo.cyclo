@@ -1,0 +1,5 @@
+core_cm4.h:2064:26:ITM_SendChar	4
+swo.c:7:5:__io_putchar	1
+swo.c:13:6:log_error	1
+swo.c:20:6:log_info	1
+swo.c:28:6:log_debug	1
