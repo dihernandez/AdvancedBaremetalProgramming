@@ -1,5 +1,6 @@
 #include "stm32f7xx.h"
 #include "uart.h"
+#include "led.h"
 #include <stdio.h>
 
 #define GPIOAEN		(1U<<0)
@@ -12,20 +13,22 @@ int main() {
 
 	// Push Button B1 is PA0
 	// GPIOA is on bus AHB1
-	/*Enable clock access to GPIOC*/
+	/*Enable clock access to GPIOA*/
 	RCC->AHB1ENR |= GPIOAEN;
 
 	/*Set PA0 as input pin*/
 	GPIOA->MODER &= ~(1U<<0);
 	GPIOA->MODER &= ~(1U<<1);
 
+	led_init();
 	while(1) {
 		/*Check if BTN is pressed*/
-		/*ush button is active low*/
+		/*push button is active high*/
 		if(GPIOA->IDR & BTN_PIN) {
-			button_state = 0;
-		} else {
 			button_state = 1;
+			toggle_led();
+		} else {
+			button_state = 0;
 		}
 
 		for(int i = 0; i < 90000; i++) {}
